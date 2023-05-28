@@ -1,24 +1,7 @@
-import { SafeAreaView, View, Text } from "react-native";
-import { Stack } from "expo-router";
+import { Redirect } from "expo-router";
 
-const Home = () => {
+export default function Home() {
   return (
-    <SafeAreaView style={{ backgroundColor: "#FAFAFC", flex: 1 }}>
-      <Stack.Screen
-        options={{
-          headerStyle: { backgroundColor: "#FAFAFC" },
-          headerShadowVisible: false,
-          headerTitle: "HotelSaver",
-          headerTitleStyle: {
-            fontFamily: "DMBold",
-          },
-        }}
-      />
-      <View>
-        <Text style={{ fontFamily: "DMBold" }}>This is home!</Text>
-      </View>
-    </SafeAreaView>
+    <Redirect href="/home" />
   );
-};
-
-export default Home;
+}
