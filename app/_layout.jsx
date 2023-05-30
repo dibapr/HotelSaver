@@ -2,6 +2,9 @@ import { Stack } from "expo-router";
 import { useCallback } from "react";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
+import { Provider } from "react-redux";
+import { store, persistor } from "../redux/store";
+import { PersistGate } from "redux-persist/integration/react";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -21,10 +24,14 @@ export default function Layout() {
   if (!fonstLoaded) return null;
   return (
     <>
-      <Stack onLayout={onLayoutRootView} screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="(tabs)" />
-        <Stack.Screen name="(auth)" />
-      </Stack>
+      <Provider store={store}>
+        <PersistGate persistor={persistor}>
+          <Stack onLayout={onLayoutRootView} screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="(tabs)" />
+            <Stack.Screen name="(auth)" />
+          </Stack>
+        </PersistGate>
+      </Provider>
     </>
   );
 }
