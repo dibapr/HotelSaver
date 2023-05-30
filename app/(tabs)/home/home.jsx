@@ -1,12 +1,22 @@
 import React from "react";
 import { useState } from "react";
-import { SafeAreaView, View, Text } from "react-native";
+import { SafeAreaView, View, Text,StyleSheet } from "react-native";
 import { Stack } from "expo-router";
 import SearchInput from "../../components/Home/SearchInput/SearchInput";
-import styles from "./home.style";
+// import styles from "./home.style";
 import COLOR from "../../../constants/color";
 import TopIndonesia from "../../components/Home/TopIndonesia/TopIndonesia";
 import PopularIndonesia from "../../components/Home/PopularIndonesia/PopularIndonesia";
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "white",
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    padding: 16,
+  },
+});
 
 const Home = () => {
   const today = new Date().toLocaleDateString("en-CA");

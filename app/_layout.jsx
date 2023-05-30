@@ -20,8 +20,11 @@ export default function Layout() {
 
   if (!fonstLoaded) return null;
   return (
-    <Stack onLayout={onLayoutRootView} screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="(tabs)" />
-    </Stack>
+    <>
+      <Stack onLayout={onLayoutRootView} screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="(tabs)" />
+        <Stack.Screen name="(auth)" />
+      </Stack>
+    </>
   );
 }
