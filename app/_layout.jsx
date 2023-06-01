@@ -26,7 +26,9 @@ export default function Layout() {
     <>
       <Provider store={store}>
         <PersistGate persistor={persistor}>
-          <Stack onLayout={onLayoutRootView} screenOptions={{ headerShown: false }}>
+          <Stack
+            onLayout={onLayoutRootView}
+            screenOptions={{ headerShown: false }}>
             <Stack.Screen name="(tabs)" />
             <Stack.Screen name="(auth)" />
           </Stack>
