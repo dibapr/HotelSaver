@@ -5,11 +5,11 @@ import ICON from "../../constants/icon";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    gap: 20,
+    gap: 10,
   },
   profileContainer: {
     display: "flex",
-    flexDirection: "col",
+    flexDirection: "column",
     backgroundColor: "white",
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
@@ -30,9 +30,14 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     padding: 10,
   },
+  listContainer: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 5,
+  },
   listHistory: {
     display: "flex",
-    flexDirection: "col",
+    flexDirection: "column",
     backgroundColor: "white",
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
@@ -57,7 +62,7 @@ const Profile = () => {
       <View style={styles.profileContainer}>
         <View style={styles.profileInfo}>
           <View>
-            <Image source={ICON.person} style={{ height: "50px", width: "50px", borderRadius: 10 }} />
+            <Image source={ICON.person} style={{ height: 50, width: 50, borderRadius: 10 }} />
           </View>
           <View style={{ flex: 1, justifyContent: "center", textAlign: "center" }}>
             <Text style={{ fontWeight: "bold" }}>Gordon Norman</Text>
@@ -79,31 +84,33 @@ const Profile = () => {
           </View>
         </View>
       </View>
-      <View style={styles.listHistory}>
-        <View style={styles.historyContainer}>
-          <View><Text><Image source={ICON.hotel} style={{ height: "50px", width: "50px", borderRadius: 10 }}/></Text></View>
-          <View>
-            <View><Text>Garden Hotel</Text></View>
-            <View><Text>Lake Mary, Florida</Text></View>
-            <View><Text>4,5</Text></View>
-          </View>
-          <View>
-            <View><Text>$ 250</Text></View>
-            <View><Text>/per night</Text></View>
+      <View style={styles.listContainer}>
+        <View style={styles.listHistory}>
+          <View style={styles.historyContainer}>
+            <View><Text><Image source={ICON.hotel} style={{ height: 50, width: 50, borderRadius: 10 }}/></Text></View>
+            <View>
+              <View><Text>Garden Hotel</Text></View>
+              <View><Text>Lake Mary, Florida</Text></View>
+              <View><Text>4,5</Text></View>
+            </View>
+            <View>
+              <View><Text>$ 250</Text></View>
+              <View><Text>/per night</Text></View>
+            </View>
           </View>
         </View>
-      </View>
-      <View style={styles.listHistory}>
-        <View style={styles.historyContainer}>
-          <View><Text><Image source={ICON.hotel} style={{ height: "50px", width: "50px", borderRadius: 10 }}/></Text></View>
-          <View>
-            <View><Text>Hotel Dreams</Text></View>
-            <View><Text>New Castle, Indiana</Text></View>
-            <View><Text>4,5</Text></View>
-          </View>
-          <View>
-            <View><Text>$ 300</Text></View>
-            <View><Text>/per night</Text></View>
+        <View style={styles.listHistory}>
+          <View style={styles.historyContainer}>
+            <View><Text><Image source={ICON.hotel} style={{ height: 50, width: 50, borderRadius: 10 }}/></Text></View>
+            <View>
+              <View><Text>Hotel Dreams</Text></View>
+              <View><Text>New Castle, Indiana</Text></View>
+              <View><Text>4,5</Text></View>
+            </View>
+            <View>
+              <View><Text>$ 300</Text></View>
+              <View><Text>/per night</Text></View>
+            </View>
           </View>
         </View>
       </View>
