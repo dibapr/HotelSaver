@@ -14,13 +14,13 @@ const authSlice = createSlice({
       return (state = {
         ...state,
         isLoggedIn: true,
-      })
+      });
     },
     logout: (state) => {
       return (state = {
         ...state,
         isLoggedIn: false,
-      })
+      });
     },
   },
 });

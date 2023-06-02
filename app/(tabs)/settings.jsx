@@ -9,55 +9,58 @@ import { useSelector } from "react-redux";
 
 const Settings = () => {
   const router = useRouter();
-  const auth = useSelector((state) => state.auth);
-  
-  return (
-    auth.isLoggedIn ? (
-      <ScrollView>
-            <SafeAreaView style={styles.container}>
-              <Stack.Screen
-                options={{
-                  headerStyle: { backgroundColor: COLOR.lightGray },
-                  headerShadowVisible: false,
-                  headerTitle: "Settings",
-                  headerTitleStyle: {
-                    fontFamily: "DMBold",
-                  },
-                }}
-              />
-              <View style={styles.icon}>
-                <Image source={ICON.user} />
-              </View>
-              <View style={styles.formContainer}>
-                <FormEdit />
-              </View>
-            </SafeAreaView>
-          </ScrollView>
-    ) : (
-      <ScrollView>
-        <SafeAreaView style={styles.container}>
-          <Stack.Screen
-            options={{
-              // headerStyle: { backgroundColor: COLOR.lightGray },
-              // headerShadowVisible: false,
-              headerTitle: "Settings",
-              headerTitleStyle: {
-                fontFamily: "DMBold",
-              },
-            }}
-          />
-          <View style={[styles.formContainer, { justifyContent: "center", textAlign: "center" , margin: 20}]}>
-            <TouchableOpacity onPress={(e) => {
-              e.preventDefault()
-              router.push('/login')
+  const { isLoggedIn } = useSelector((state) => state.auth);
+
+  return isLoggedIn ? (
+    <ScrollView>
+      <SafeAreaView style={styles.container}>
+        <Stack.Screen
+          options={{
+            headerStyle: { backgroundColor: COLOR.lightGray },
+            headerShadowVisible: false,
+            headerTitle: "Settings",
+            headerTitleStyle: {
+              fontFamily: "DMBold",
+            },
+          }}
+        />
+        <View style={styles.icon}>
+          <Image source={ICON.user} />
+        </View>
+        <View style={styles.formContainer}>
+          <FormEdit />
+        </View>
+      </SafeAreaView>
+    </ScrollView>
+  ) : (
+    <ScrollView>
+      <SafeAreaView style={styles.container}>
+        <Stack.Screen
+          options={{
+            // headerStyle: { backgroundColor: COLOR.lightGray },
+            // headerShadowVisible: false,
+            headerTitle: "Settings",
+            headerTitleStyle: {
+              fontFamily: "DMBold",
+            },
+          }}
+        />
+        <View
+          style={[
+            styles.formContainer,
+            { justifyContent: "center", textAlign: "center", margin: 20 },
+          ]}>
+          <TouchableOpacity
+            onPress={(e) => {
+              e.preventDefault();
+              router.replace("login");
             }}>
-              <Text>Login</Text>
-            </TouchableOpacity>
-          </View>
-        </SafeAreaView>
-      </ScrollView>
-    )
-  )
+            <Text>Login</Text>
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
+    </ScrollView>
+  );
 };
 
 const styles = StyleSheet.create({
