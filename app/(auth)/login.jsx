@@ -32,35 +32,40 @@ const Login = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    const handleLogin = (e) => {
-        e.preventDefault()
-        if (email === auth.email && password === auth.password) {
+    const handleLogin = () => {
+        console.log("ini state", email.email, password.password);
+        console.log("ini redux", auth.email, auth.password);
+        if (email.email === auth.email && password.password === auth.password) {
+            console.log('masuk');
             dispatch(login())
-            router.replace('/home')
+            router.back()
         }
+        console.log('gagal');
     }
 
   return (
     <SafeAreaView style={style.container}>
         <View style={{backgroundColor: "#ffffff"}}>
             <View>
-                <Text style={[{fontSize: '30px'}, style.textCenter]}>Login</Text>
+                <Text style={[{fontSize: 30}, style.textCenter]}>Login</Text>
             </View>
             <View>
                 <Text>Email</Text>
-                <TextInput onChange={(e) => {
-                    setEmail(e.target.value)
+                <TextInput name="email" onChangeText={(email) => {
+                    console.log(email);
+                    setEmail({email})
                 }} />
             </View>
             <View>
                 <Text>Password</Text>
-                <TextInput onChange={(e) => {
-                    setPassword(e.target.value)
+                <TextInput name="password" onChangeText={(password) => {
+                    console.log(password);
+                    setPassword({password})
                 }} />
             </View>
             <View>
-                <TouchableOpacity style={style.btnPrimary} onPress={(e) => {
-                    handleLogin(e)
+                <TouchableOpacity style={style.btnPrimary} onPress={() => {
+                    handleLogin()
                 }}>
                     <Text style={[style.textWhite, style.textCenter]}>Login</Text>
                 </TouchableOpacity>
