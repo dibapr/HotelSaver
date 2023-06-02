@@ -28,7 +28,7 @@ const Register = () => {
     <SafeAreaView style={style.container}>
         <View style={{backgroundColor: "#ffffff"}}>
             <View>
-                <Text style={[{fontSize: '30px'}, style.textCenter]}>Register</Text>
+                <Text style={[{fontSize: 30}, style.textCenter]}>Register</Text>
             </View>
             <View>
                 <Text>Email</Text>
