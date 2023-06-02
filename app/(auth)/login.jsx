@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { Link, useRouter } from 'expo-router'
+import { Link, useRouter, useRootNavigation } from 'expo-router'
 import { SafeAreaView, View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native'
 import COLOR from "../../constants/color";
 import { useDispatch, useSelector } from 'react-redux';
@@ -28,6 +28,7 @@ const style = StyleSheet.create({
 const Login = () => {
     const dispatch = useDispatch()
     const router = useRouter()
+    const rootNavigation = useRootNavigation()
     const auth = useSelector(state => state.auth)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -38,7 +39,8 @@ const Login = () => {
         if (email.email === auth.email && password.password === auth.password) {
             console.log('masuk');
             dispatch(login())
-            router.back()
+            rootNavigation.navigate('home')
+            // router.back()
         }
         console.log('gagal');
     }
