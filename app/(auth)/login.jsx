@@ -1,7 +1,9 @@
-import React from 'react'
-import { Link } from 'expo-router'
+import React, {useState} from 'react'
+import { Link, useRouter } from 'expo-router'
 import { SafeAreaView, View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native'
 import COLOR from "../../constants/color";
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from '../../redux/slice/authSlice';
 
 const style = StyleSheet.create({
     container: {
@@ -24,6 +26,20 @@ const style = StyleSheet.create({
 })
 
 const Login = () => {
+    const dispatch = useDispatch()
+    const router = useRouter()
+    const auth = useSelector(state => state.auth)
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+
+    const handleLogin = (e) => {
+        e.preventDefault()
+        if (email === auth.email && password === auth.password) {
+            dispatch(login())
+            router.replace('/home')
+        }
+    }
+
   return (
     <SafeAreaView style={style.container}>
         <View style={{backgroundColor: "#ffffff"}}>
@@ -32,14 +48,20 @@ const Login = () => {
             </View>
             <View>
                 <Text>Email</Text>
-                <TextInput />
+                <TextInput onChange={(e) => {
+                    setEmail(e.target.value)
+                }} />
             </View>
             <View>
                 <Text>Password</Text>
-                <TextInput />
+                <TextInput onChange={(e) => {
+                    setPassword(e.target.value)
+                }} />
             </View>
             <View>
-                <TouchableOpacity style={style.btnPrimary}>
+                <TouchableOpacity style={style.btnPrimary} onPress={(e) => {
+                    handleLogin(e)
+                }}>
                     <Text style={[style.textWhite, style.textCenter]}>Login</Text>
                 </TouchableOpacity>
             </View>
