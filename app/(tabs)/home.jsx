@@ -1,12 +1,12 @@
 import React from "react";
 import { useState } from "react";
-import { SafeAreaView, View, Text,StyleSheet } from "react-native";
+import { SafeAreaView, View, Text, StyleSheet } from "react-native";
 import { Stack } from "expo-router";
-import SearchInput from "../../components/Home/SearchInput/SearchInput";
+import SearchInput from "../components/Home/SearchInput/SearchInput";
 // import styles from "./home.style";
-import COLOR from "../../../constants/color";
-import TopIndonesia from "../../components/Home/TopIndonesia/TopIndonesia";
-import PopularIndonesia from "../../components/Home/PopularIndonesia/PopularIndonesia";
+import COLOR from "../../constants/color";
+import TopIndonesia from "../components/Home/TopIndonesia/TopIndonesia";
+import PopularIndonesia from "../components/Home/PopularIndonesia/PopularIndonesia";
 
 const styles = StyleSheet.create({
   container: {
