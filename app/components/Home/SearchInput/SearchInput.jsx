@@ -1,5 +1,5 @@
-import React from "react";
-import { useState } from "react";
+import React from 'react';
+import { useState } from 'react';
 import {
   View,
   Text,
@@ -7,15 +7,15 @@ import {
   TextInput,
   Image,
   Modal,
-} from "react-native";
-import styles from "./SearchInput.style";
-import DatePicker from "react-native-modern-datepicker";
-import ICON from "../../../../constants/icon";
-import COLOR from "../../../../constants/color";
+} from 'react-native';
+import styles from './SearchInput.style';
+import DatePicker from 'react-native-modern-datepicker';
+import ICON from '../../../../constants/icon';
+import COLOR from '../../../../constants/color';
 
 const SearchInput = () => {
   const today = new Date();
-  const [date, setDate] = useState(today.toLocaleDateString("en-CA"));
+  const [date, setDate] = useState(today.toLocaleDateString('en-CA'));
   const [open, setOpen] = useState(false);
 
   const handleOnPress = () => {
@@ -25,7 +25,7 @@ const SearchInput = () => {
   return (
     <View style={styles.container}>
       <TextInput
-        placeholderTextColor={COLOR.lightGray}
+        placeholderTextColor={COLOR.white}
         style={styles.searchInput}
         placeholder="Search here..."
       />
@@ -50,7 +50,8 @@ const SearchInput = () => {
               <Text style={styles.modalText}>Hello World!</Text>
               <TouchableOpacity
                 style={[styles.button, styles.buttonClose]}
-                onPress={() => setOpen(!open)}>
+                onPress={() => setOpen(!open)}
+              >
                 <Text style={styles.textStyle}>Hide Modal</Text>
               </TouchableOpacity>
             </View>
@@ -65,7 +66,7 @@ const SearchInput = () => {
       /> */}
       <TouchableOpacity style={styles.btnSearch}>
         <Image style={styles.icon} source={ICON.search} />
-        <Text style={{ fontFamily: "DMMedium" }}>Search</Text>
+        <Text style={{ fontFamily: 'DMMedium' }}>Search</Text>
       </TouchableOpacity>
     </View>
   );

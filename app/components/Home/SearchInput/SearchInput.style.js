@@ -1,5 +1,5 @@
-import { StyleSheet } from "react-native";
-import COLOR from "../../../../constants/color";
+import { StyleSheet } from 'react-native';
+import COLOR from '../../../../constants/color';
 
 const styles = StyleSheet.create({
   container: {
@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 30,
     backgroundColor: COLOR.primary,
-    borderColor: "#EAEAEA",
+    borderColor: '#EAEAEA',
     borderWidth: 1,
   },
 
@@ -18,15 +18,15 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1,
     borderColor: COLOR.lightGray,
-    color: "white",
-    fontFamily: "DMRegular",
+    color: 'white',
+    fontFamily: 'DMRegular',
   },
 
   btnDateContainer: {
     marginTop: 10,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
 
   btnDate: {
@@ -34,21 +34,21 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
     borderRadius: 10,
-    alignItems: "center",
-    flexDirection: "row",
+    alignItems: 'center',
+    flexDirection: 'row',
     gap: 5,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
 
   btnDateText: {
-    textAlign: "center",
-    fontFamily: "DMMedium",
+    textAlign: 'center',
+    fontFamily: 'DMMedium',
     color: COLOR.lightGray,
   },
 
   checkText: {
-    fontFamily: "DMRegular",
-    color: "white",
+    fontFamily: 'DMRegular',
+    color: 'white',
   },
 
   icon: {
@@ -59,26 +59,26 @@ const styles = StyleSheet.create({
   btnSearch: {
     marginTop: 10,
     backgroundColor: COLOR.secondary,
-    justifyContent: "center",
+    justifyContent: 'center',
     padding: 10,
     borderRadius: 10,
-    flexDirection: "row",
+    flexDirection: 'row',
     gap: 3,
   },
 
   centeredView: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     marginTop: 22,
   },
   modalView: {
     margin: 20,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     borderRadius: 20,
     padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
+    alignItems: 'center',
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 2,
@@ -93,19 +93,19 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   buttonOpen: {
-    backgroundColor: "#F194FF",
+    backgroundColor: '#F194FF',
   },
   buttonClose: {
-    backgroundColor: "#2196F3",
+    backgroundColor: '#2196F3',
   },
   textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
   modalText: {
     marginBottom: 15,
-    textAlign: "center",
+    textAlign: 'center',
   },
 });
 
