@@ -85,16 +85,16 @@ const Home = () => {
                     <View style={{ borderRadius: 20 }}>
                       <Image source={{ uri: item.propertyImage.image.url }} style={{ width: "auto", height: 100, borderRadius: 10 }} />
                     </View>
-                    <View style={{ display: "flex", flexDirection: "row", justifyContent:"space-between", margin: 10 }}>
-                      <View>
-                        <Text style={{ fontFamily: "DMBold", fontSize: 20 }}>
+                    <View style={{ display: "flex", flexDirection: "row", margin: 10 }}>
+                      <View style={{ flex: 2 }}>
+                        <Text style={{ fontFamily: "DMBold", fontSize: 16 }}>
                           {item.name}
                         </Text>
                         <Text style={{ fontFamily: "DMRegular", fontSize: 16}}>
-                          {item.reviews.score}
+                          Rating {item.reviews.score}
                         </Text>
                       </View>
-                      <View>
+                      <View style={{ flex: 2, alignItems: "flex-end"}}>
                         <Text style={{ fontFamily: "DMRegular", fontSize: 16 }}>
                           $ {item.price.lead.amount}
                         </Text>
