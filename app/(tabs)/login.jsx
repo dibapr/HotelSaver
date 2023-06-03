@@ -11,6 +11,7 @@ import {
 import COLOR from "../../constants/color";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../redux/slice/authSlice";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 const style = StyleSheet.create({
   container: {
@@ -43,11 +44,12 @@ const style = StyleSheet.create({
 const Login = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const rootNavigation = useRootNavigation();
+  // const rootNavigation = useRootNavigation();
   const auth = useSelector((state) => state.auth);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(true);
 
   const handleLogin = () => {
     setError("");
@@ -56,7 +58,7 @@ const Login = () => {
     if (email.email === auth.email && password.password === auth.password) {
       console.log("masuk");
       dispatch(login());
-      rootNavigation.navigate("home");
+      router.replace("home");
       // router.back()
       return;
     }
@@ -64,18 +66,19 @@ const Login = () => {
     setError("Email atau password anda salah.");
   };
 
+  const showPasswordHandler = () => {
+    setShowPassword((prev) => !prev);
+  };
+
   return (
     <SafeAreaView style={style.container}>
-      {/* <Stack.Screen
+      <Stack.Screen
         options={{
           headerStyle: { backgroundColor: COLOR.lightGray },
           headerShadowVisible: false,
-          headerTitle: "HotelSaver",
-          headerTitleStyle: {
-            fontFamily: "DMBold",
-          },
+          headerTitle: "",
         }}
-      /> */}
+      />
       <View
         style={{
           backgroundColor: "#ffffff",
@@ -103,6 +106,7 @@ const Login = () => {
             style={style.input}
             name="email"
             onChangeText={(email) => {
+              setError("");
               console.log(email);
               setEmail({ email });
             }}
@@ -111,14 +115,29 @@ const Login = () => {
         <View>
           <Text style={{ fontFamily: "DMMedium", fontSize: 16 }}>Password</Text>
           <TextInput
+            secureTextEntry={showPassword}
             style={style.input}
             name="password"
             onChangeText={(password) => {
+              setError("");
               console.log(password);
               setPassword({ password });
             }}
           />
         </View>
+        <TouchableOpacity
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            gap: 5,
+          }}
+          onPress={showPasswordHandler}>
+          <MaterialCommunityIcons
+            name={!showPassword ? "eye-off" : "eye"}
+            size={20}
+          />
+          <Text>{!showPassword ? "Hide Password" : "Show Password"}</Text>
+        </TouchableOpacity>
         {error && (
           <Text
             style={{

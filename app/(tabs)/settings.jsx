@@ -33,39 +33,48 @@ const Settings = () => {
       </SafeAreaView>
     </ScrollView>
   ) : (
-    <ScrollView>
-      <SafeAreaView style={styles.container}>
-        <Stack.Screen
-          options={{
-            // headerStyle: { backgroundColor: COLOR.lightGray },
-            // headerShadowVisible: false,
-            headerTitle: "Settings",
-            headerTitleStyle: {
+    <ScrollView style={{ flex: 1 }}>
+      <Stack.Screen
+        options={{
+          headerStyle: { backgroundColor: COLOR.lightGray },
+          // headerShadowVisible: false,
+          headerTitle: "",
+          headerTitleStyle: {
+            fontFamily: "DMBold",
+          },
+        }}
+      />
+      <View
+        style={{
+          alignItems: "center",
+          height: 600,
+          justifyContent: "center",
+          gap: 10,
+        }}>
+        <Text style={{ fontFamily: "DMMedium", fontSize: 20 }}>
+          Belum login?
+        </Text>
+        <TouchableOpacity
+          style={styles.btnLogin}
+          onPress={() => {
+            router.replace("login");
+          }}>
+          <Text
+            style={{
+              textAlign: "center",
               fontFamily: "DMBold",
-            },
-          }}
-        />
-        <View
-          style={[
-            styles.formContainer,
-            { justifyContent: "center", textAlign: "center", margin: 20 },
-          ]}>
-          <TouchableOpacity
-            onPress={(e) => {
-              e.preventDefault();
-              router.replace("login");
+              fontSize: 25,
             }}>
-            <Text>Login</Text>
-          </TouchableOpacity>
-        </View>
-      </SafeAreaView>
+            Login
+          </Text>
+        </TouchableOpacity>
+      </View>
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: COLOR.lightGray,
     gap: 20,
   },
@@ -86,6 +95,13 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20,
     padding: 16,
     flex: 1,
+  },
+
+  btnLogin: {
+    backgroundColor: COLOR.secondary,
+    padding: 10,
+    width: 200,
+    borderRadius: 20,
   },
 });
 

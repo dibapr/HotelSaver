@@ -40,6 +40,12 @@ export default function AppLayout() {
           ),
         }}
       />
+      <Tabs.Screen
+        name="login"
+        options={{
+          href: null,
+        }}
+      />
     </Tabs>
   );
 }
