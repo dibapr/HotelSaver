@@ -11,17 +11,13 @@ const FormEdit = () => {
   const handleLogout = () => {
     dispatch(logout());
     router.push("/login");
-  }
+  };
 
   return (
     <View style={styles.container}>
       <Text style={styles.head}>Personal Data</Text>
       <View style={styles.inputContainer}>
-        <Text style={styles.label}>Nama Depan</Text>
-        <TextInput style={styles.input} />
-      </View>
-      <View style={styles.inputContainer}>
-        <Text style={styles.label}>Nama Belakang</Text>
+        <Text style={styles.label}>Nama Lengkap</Text>
         <TextInput style={styles.input} />
       </View>
       <View style={styles.inputContainer}>
@@ -36,9 +32,10 @@ const FormEdit = () => {
         <Text style={styles.label}>Jenis Kelamin</Text>
         <TextInput style={styles.input} />
       </View>
-      <TouchableOpacity onPress={() => {
-        handleLogout()
-      }}>
+      <TouchableOpacity
+        onPress={() => {
+          handleLogout();
+        }}>
         <Text style={styles.logout}>Logout</Text>
       </TouchableOpacity>
     </View>
