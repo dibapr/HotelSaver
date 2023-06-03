@@ -1,5 +1,6 @@
 import axios from "axios";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import http from "../../services/http";
 
 const initialState = {
   home: [],
@@ -28,27 +29,66 @@ export const getHome = createAsyncThunk("home/getHome", async () => {
   // const response = await axios.request(options);
   // console.log(response.data);
 
-  const response = await axios.post(
-    "https://hotels4.p.rapidapi.com/reviews/v3/list",
-    {
-      currency: "USD",
-      eapid: 1,
-      locale: "en_US",
-      siteId: 300000001,
-      propertyId: "9209612",
-      size: 10,
-      startingIndex: 0,
+  // const response = await axios.post(
+  //   "https://hotels4.p.rapidapi.com/reviews/v3/list",
+  //   {
+  //     currency: "USD",
+  //     eapid: 1,
+  //     locale: "en_US",
+  //     siteId: 300000001,
+  //     propertyId: "9209612",
+  //     size: 10,
+  //     startingIndex: 0,
+  //   },
+  //   {
+  //     headers: {
+  //       "content-type": "application/json",
+  //       "X-RapidAPI-Key": `${process.env.REACT_APP_RAPIDAPI_KEY}`,
+  //       "X-RapidAPI-Host": `${process.env.REACT_APP_RAPIDAPI_HOST}`,
+  //     },
+  //   }
+  // );
+  // console.log(response.data.data);
+  // return response.data.data;
+
+  const response = await http.post("properties/v2/list", {
+    currency: 'USD',
+    eapid: 1,
+    locale: 'en_US',
+    siteId: 300000001,
+    destination: {
+      regionId: '6054439'
     },
-    {
-      headers: {
-        "content-type": "application/json",
-        "X-RapidAPI-Key": `${process.env.REACT_APP_RAPIDAPI_KEY}`,
-        "X-RapidAPI-Host": `${process.env.REACT_APP_RAPIDAPI_HOST}`,
-      },
+    checkInDate: {
+      day: 10,
+      month: 10,
+      year: 2022
+    },
+    checkOutDate: {
+      day: 15,
+      month: 10,
+      year: 2022
+    },
+    rooms: [
+      {
+        adults: 2,
+        children: [{age: 5}, {age: 7}]
+      }
+    ],
+    resultsStartingIndex: 0,
+    resultsSize: 200,
+    sort: 'PRICE_LOW_TO_HIGH',
+    filters: {
+      price: {max: 150, min: 100}
     }
-  );
-  console.log(response.data.data);
-  return response.data.data;
+  }, {
+    headers: {
+      "content-type": "application/json",
+    },
+  });
+
+  console.log(response.data.data.propertySearch.properties);
+  return response.data.data.propertySearch.properties;
 });
 
 const homeSlice = createSlice({
