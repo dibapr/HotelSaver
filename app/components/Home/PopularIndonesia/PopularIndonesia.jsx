@@ -1,7 +1,10 @@
-import { Text, View, Image } from "react-native";
+import { Text, View, Image, TouchableOpacity } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { getHome } from "../../../../redux/slice/homeSlice";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHeart } from '@fortawesome/free-solid-svg-icons'
+
+import { addToFavorites, removeFromFavorites, getHome } from "../../../../redux/slice/homeSlice";
 
 const PopularIndonesia = () => {
   const dispatch = useDispatch();
@@ -84,6 +87,27 @@ const PopularIndonesia = () => {
                   <Text style={{ fontFamily: "DMRegular", fontSize: 16 }}>
                     $ {item.price.lead.amount}
                   </Text>
+                  {
+                    home.favorites.find((favorite) => favorite.id === item.id) ? (
+                      <TouchableOpacity onPress={() => {
+                        dispatch(removeFromFavorites(item.id));
+                        console.log("ini hapus", item.id);
+                      }}>
+                        <FontAwesomeIcon icon={faHeart} style={{ color: "red" }} />
+                        {/* <Image source={ICON.heart} style={{ width: 20, height: 20 }} /> */}
+                        <Text>Buang</Text>
+                      </TouchableOpacity>
+                    ) : (
+                      <TouchableOpacity onPress={() => {
+                        dispatch(addToFavorites(item));
+                        console.log("ini tambah", item);
+                      }}>
+                        <FontAwesomeIcon icon={faHeart} style={{ color: "black" }} />
+                        {/* <Image source={ICON.heartOutline} style={{ width: 20, height: 20 }} /> */}
+                        <Text>Simpan</Text>
+                      </TouchableOpacity>
+                    )
+                  }
                 </View>
               </View>
             </View>
