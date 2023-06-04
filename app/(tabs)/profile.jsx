@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
 const Profile = () => {
   const router = useRouter();
   const { isLoggedIn } = useSelector((state) => state.auth);
-  
+
   return isLoggedIn ? (
     <View style={styles.container}>
       <View style={styles.profileContainer}>
