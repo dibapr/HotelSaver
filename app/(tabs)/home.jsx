@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import { useState } from "react";
 import {
   SafeAreaView,
@@ -7,15 +6,14 @@ import {
   StyleSheet,
   ScrollView,
   Image,
+  TouchableOpacity,
 } from "react-native";
 import { Stack } from "expo-router";
 import SearchInput from "../components/Home/SearchInput/SearchInput";
 import COLOR from "../../constants/color";
 import TopIndonesia from "../components/Home/TopIndonesia/TopIndonesia";
 import PopularIndonesia from "../components/Home/PopularIndonesia/PopularIndonesia";
-import ICON from "../../constants/icon";
-import { useDispatch, useSelector } from "react-redux";
-import { getHome } from "../../redux/slice/homeSlice";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const styles = StyleSheet.create({
   container: {
@@ -37,6 +35,14 @@ const styles = StyleSheet.create({
 const Home = () => {
   const today = new Date().toLocaleDateString("en-CA");
   const [date, setDate] = useState(today);
+  const resetStorage = async () => {
+    try {
+      await AsyncStorage.removeItem("persist:root");
+    } catch (e) {
+      console.log(e);
+    }
+    console.log("Done.");
+  };
   return (
     <ScrollView>
       <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.lightGray }}>
@@ -53,6 +59,15 @@ const Home = () => {
         <View style={{ backgroundColor: COLOR.lightGray }}>
           <SearchInput today={today} checkOutDate={setDate} />
           <View style={styles.container}>
+            <TouchableOpacity
+              onPress={resetStorage}
+              style={{
+                backgroundColor: COLOR.primary,
+                padding: 15,
+                borderRadius: 20,
+              }}>
+              <Text style={{ color: "white" }}>Reset Storage</Text>
+            </TouchableOpacity>
             <TopIndonesia />
             <PopularIndonesia />
           </View>
