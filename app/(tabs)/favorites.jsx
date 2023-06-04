@@ -43,7 +43,7 @@ const Favorites = () => {
     <ScrollView style={{ flex: 1 }}>
       <View style={styles.container}>
         {
-          !home.favorites.length ? (
+          !home.favorites ? (
             <View style={{ alignItems: "center" }}>
               <Text style={{ fontFamily: "DMBold", fontSize: 20 }}>
                 Belum ada yang disimpan
