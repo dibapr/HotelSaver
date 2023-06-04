@@ -4,6 +4,7 @@ import http from "../../services/http";
 
 const initialState = {
   home: [],
+  favorites: [],
   loading: false,
 };
 
@@ -51,41 +52,45 @@ export const getHome = createAsyncThunk("home/getHome", async () => {
   // console.log(response.data.data);
   // return response.data.data;
 
-  const response = await http.post("properties/v2/list", {
-    currency: 'USD',
-    eapid: 1,
-    locale: 'en_US',
-    siteId: 300000001,
-    destination: {
-      regionId: '6054439'
+  const response = await http.post(
+    "properties/v2/list",
+    {
+      currency: "USD",
+      eapid: 1,
+      locale: "id_ID",
+      siteId: 300000001,
+      destination: {
+        regionId: "6054439",
+      },
+      checkInDate: {
+        day: 10,
+        month: 10,
+        year: 2022,
+      },
+      checkOutDate: {
+        day: 15,
+        month: 10,
+        year: 2022,
+      },
+      rooms: [
+        {
+          adults: 2,
+          children: [{ age: 5 }, { age: 7 }],
+        },
+      ],
+      resultsStartingIndex: 0,
+      resultsSize: 200,
+      sort: "PRICE_LOW_TO_HIGH",
+      filters: {
+        price: { max: 150, min: 100 },
+      },
     },
-    checkInDate: {
-      day: 10,
-      month: 10,
-      year: 2022
-    },
-    checkOutDate: {
-      day: 15,
-      month: 10,
-      year: 2022
-    },
-    rooms: [
-      {
-        adults: 2,
-        children: [{age: 5}, {age: 7}]
-      }
-    ],
-    resultsStartingIndex: 0,
-    resultsSize: 200,
-    sort: 'PRICE_LOW_TO_HIGH',
-    filters: {
-      price: {max: 150, min: 100}
+    {
+      headers: {
+        "content-type": "application/json",
+      },
     }
-  }, {
-    headers: {
-      "content-type": "application/json",
-    },
-  });
+  );
 
   console.log(response.data.data.propertySearch.properties);
   return response.data.data.propertySearch.properties;
@@ -94,7 +99,19 @@ export const getHome = createAsyncThunk("home/getHome", async () => {
 const homeSlice = createSlice({
   name: "home",
   initialState,
-  reducers: {},
+  reducers: {
+    addToFavorites: (state, action) => {
+      state.favorites.push(action.payload);
+    },
+    removeFromFavorites: (state, action) => {
+      state.favorites = state.favorites.filter(
+        (item) => item.id !== action.payload
+      );
+    },
+    resetFavorites: (state, action) => {
+      state.favorites = initialState.favorites;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getHome.pending, (state, action) => {
@@ -110,4 +127,5 @@ const homeSlice = createSlice({
   },
 });
 
+export const { addToFavorites, removeFromFavorites } = homeSlice.actions;
 export default homeSlice.reducer;
