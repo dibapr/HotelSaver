@@ -1,22 +1,25 @@
 import { FlatList, Text, View } from "react-native";
 import Card from "../utils/Card/Card";
+import { useDispatch, useSelector } from "react-redux";
+import { getCity } from "../../../../redux/slice/homeSlice";
+import { useEffect } from "react";
 
 const TopIndonesia = () => {
-  const DUMMY_DATA = [
-    { title: "Jakarta" },
-    { title: "Bandung" },
-    { title: "Bali" },
-    { title: "Lombok" },
-    { title: "Papua" },
-    { title: "Yogyakarta" },
-  ];
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getCity());
+  }, []);
+
+  const { city } = useSelector((state) => state.home);
+
   return (
     <View>
       <Text style={{ fontFamily: "DMBold" }}>KOTA-KOTA DI INDONESIA</Text>
       <View>
         <FlatList
-          data={DUMMY_DATA}
-          renderItem={({ item }) => <Card title={item.title} />}
+          data={city}
+          renderItem={({ item }) => <Card title={item.regionNames.shortName} />}
           horizontal
         />
       </View>
