@@ -4,7 +4,7 @@ import COLOR from "../../../../constants/color";
 const styles = StyleSheet.create({
   container: {
     margin: 12,
-    gap: 5,
+    gap: 1,
     borderRadius: 10,
     padding: 30,
     backgroundColor: COLOR.primary,

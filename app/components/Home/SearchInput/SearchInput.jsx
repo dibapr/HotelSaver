@@ -27,10 +27,10 @@ const SearchInput = () => {
       <TextInput
         placeholderTextColor={COLOR.lightGray}
         style={styles.searchInput}
-        placeholder="Search here..."
+        placeholder="Mau kemana hari ini?"
       />
       <View style={styles.btnDateContainer}>
-        <View style={{ gap: 10 }}>
+        {/* <View style={{ gap: 10 }}>
           <Text style={styles.checkText}>Check In</Text>
           <TouchableOpacity style={styles.btnDate} onPress={handleOnPress}>
             <Image style={styles.icon} source={ICON.calendar} />
@@ -43,7 +43,7 @@ const SearchInput = () => {
             <Image style={styles.icon} source={ICON.calendar} />
             <Text style={styles.btnDateText}>{date}</Text>
           </TouchableOpacity>
-        </View>
+        </View> */}
         <Modal animationType="fade" transparent={true} visible={open}>
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
