@@ -101,7 +101,10 @@ const homeSlice = createSlice({
     },
     removeFromFavorites: (state, action) => {
       state.favorites = state.favorites.filter((item) => item.id !== action.payload);
-    }
+    },
+    resetFavorites: (state, action) => {
+      state.favorites = initialState.favorites;
+    },
   },
   extraReducers: (builder) => {
     builder
