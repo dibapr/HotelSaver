@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { View } from 'react-native-web';
+import React, { useEffect } from 'react';
+import { Text, View } from 'react-native';
 
 const SplashScreen = ({ navigation }) => {
   useEffect(() => {
