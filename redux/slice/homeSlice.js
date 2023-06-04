@@ -108,6 +108,9 @@ const homeSlice = createSlice({
         (item) => item.id !== action.payload
       );
     },
+    resetFavorites: (state, action) => {
+      state.favorites = initialState.favorites;
+    },
   },
   extraReducers: (builder) => {
     builder
