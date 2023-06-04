@@ -1,10 +1,15 @@
 import { Text, View, Image, TouchableOpacity } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHeart } from '@fortawesome/free-solid-svg-icons'
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-import { addToFavorites, removeFromFavorites, getHome } from "../../../../redux/slice/homeSlice";
+import {
+  addToFavorites,
+  removeFromFavorites,
+  getHome,
+} from "../../../../redux/slice/homeSlice";
 
 const PopularIndonesia = () => {
   const dispatch = useDispatch();
@@ -83,31 +88,42 @@ const PopularIndonesia = () => {
                     Rating {item.reviews.score}
                   </Text>
                 </View>
-                <View style={{ flex: 2, alignItems: "flex-end" }}>
+                <View
+                  style={{
+                    flex: 2,
+                    alignItems: "flex-end",
+                    justifyContent: "space-between",
+                  }}>
                   <Text style={{ fontFamily: "DMRegular", fontSize: 16 }}>
                     $ {item.price.lead.amount}
                   </Text>
-                  {
-                    home.favorites.find((favorite) => favorite.id === item.id) ? (
-                      <TouchableOpacity onPress={() => {
+                  {home.favorites.find(
+                    (favorite) => favorite.id === item.id
+                  ) ? (
+                    <TouchableOpacity
+                      onPress={() => {
                         dispatch(removeFromFavorites(item.id));
                         console.log("ini hapus", item.id);
                       }}>
-                        <FontAwesomeIcon icon={faHeart} style={{ color: "red" }} />
-                        {/* <Image source={ICON.heart} style={{ width: 20, height: 20 }} /> */}
-                        <Text>Buang</Text>
-                      </TouchableOpacity>
-                    ) : (
-                      <TouchableOpacity onPress={() => {
+                      <MaterialCommunityIcons
+                        name="heart"
+                        color="red"
+                        size={25}
+                      />
+                    </TouchableOpacity>
+                  ) : (
+                    <TouchableOpacity
+                      onPress={() => {
                         dispatch(addToFavorites(item));
                         console.log("ini tambah", item);
                       }}>
-                        <FontAwesomeIcon icon={faHeart} style={{ color: "black" }} />
-                        {/* <Image source={ICON.heartOutline} style={{ width: 20, height: 20 }} /> */}
-                        <Text>Simpan</Text>
-                      </TouchableOpacity>
-                    )
-                  }
+                      <MaterialCommunityIcons
+                        name="heart-outline"
+                        color="black"
+                        size={25}
+                      />
+                    </TouchableOpacity>
+                  )}
                 </View>
               </View>
             </View>
