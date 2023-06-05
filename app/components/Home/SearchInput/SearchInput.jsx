@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import {
   View,
@@ -12,6 +12,7 @@ import styles from './SearchInput.style';
 import DatePicker from 'react-native-modern-datepicker';
 import ICON from '../../../../constants/icon';
 import COLOR from '../../../../constants/color';
+// import _ from 'lodash';
 
 const SearchInput = () => {
   const today = new Date();
