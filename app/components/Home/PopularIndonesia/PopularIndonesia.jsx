@@ -10,10 +10,13 @@ import {
   removeFromFavorites,
   getHome,
 } from "../../../../redux/slice/homeSlice";
+import { useRouter } from "expo-router";
 
 const PopularIndonesia = () => {
   const dispatch = useDispatch();
+  const router = useRouter()
   const home = useSelector((state) => state.home);
+  const auth = useSelector((state) => state.auth)
 
   useEffect(() => {
     dispatch(getHome());
@@ -102,8 +105,11 @@ const PopularIndonesia = () => {
                   ) ? (
                     <TouchableOpacity
                       onPress={() => {
-                        dispatch(removeFromFavorites(item.id));
-                        console.log("ini hapus", item.id);
+                        if (auth.isLoggedIn === true) {
+                          dispatch(removeFromFavorites(item.id));
+                          console.log("ini hapus", item.id);
+                        }
+                        router.replace("login")
                       }}>
                       <MaterialCommunityIcons
                         name="heart"
@@ -114,8 +120,11 @@ const PopularIndonesia = () => {
                   ) : (
                     <TouchableOpacity
                       onPress={() => {
-                        dispatch(addToFavorites(item));
-                        console.log("ini tambah", item);
+                        if (auth.isLoggedIn === true) {
+                          dispatch(addToFavorites(item));
+                          console.log("ini tambah", item);
+                        }
+                        router.replace("login")
                       }}>
                       <MaterialCommunityIcons
                         name="heart-outline"
