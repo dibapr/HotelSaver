@@ -33,7 +33,9 @@ const PopularIndonesia = () => {
 
   return (
     <>
-      <Text style={{ fontFamily: "DMBold" }}>TEMPAT WISATA POPULER</Text>
+      <Text style={{ fontFamily: "DMBold", color: COLOR.primary }}>
+        TEMPAT WISATA POPULER
+      </Text>
       <Modal
         animationType="slide"
         transparent={true}
@@ -61,7 +63,14 @@ const PopularIndonesia = () => {
       <View style={{ gap: 16 }}>
         {!isLoggedIn
           ? home.home.map((item, index) => (
-              <View
+              <TouchableOpacity
+                onPress={() => {
+                  console.log(item.id);
+                  router.push({
+                    pathname: `details/${item.id}`,
+                    params: item.id,
+                  });
+                }}
                 style={{
                   backgroundColor: "white",
                   borderRadius: 10,
@@ -107,7 +116,7 @@ const PopularIndonesia = () => {
                     </TouchableOpacity>
                   </View>
                 </View>
-              </View>
+              </TouchableOpacity>
             ))
           : home.home.map((item, index) => (
               <View
