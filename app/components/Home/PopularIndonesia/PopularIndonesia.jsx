@@ -22,9 +22,9 @@ import COLOR from "../../../../constants/color";
 
 const PopularIndonesia = () => {
   const dispatch = useDispatch();
+  const router = useRouter();
   const home = useSelector((state) => state.home);
   const { isLoggedIn } = useSelector((state) => state.auth);
-  const router = useRouter();
   const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
