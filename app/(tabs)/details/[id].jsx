@@ -8,7 +8,7 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
-import { useLocalSearchParams, Stack } from "expo-router";
+import { useLocalSearchParams, Stack, useRouter } from "expo-router";
 import COLOR from "../../../constants/color";
 import { getDetails, resetDetails } from "../../../redux/slice/detailSlice";
 import { useEffect } from "react";
@@ -16,6 +16,7 @@ import { useSelector, useDispatch } from "react-redux";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 const HotelDetail = () => {
+  const router = useRouter()
   const dispatch = useDispatch();
   const { id } = useLocalSearchParams();
 
@@ -88,7 +89,9 @@ const HotelDetail = () => {
                 </View>
               </View>
             </View>
-            <TouchableOpacity style={styles.btnBooking}>
+            <TouchableOpacity style={styles.btnBooking} onPress={() => {
+              router.push("booking")
+            }}>
               <Text style={styles.bookingText}>Booking Sekarang</Text>
             </TouchableOpacity>
           </View>

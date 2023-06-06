@@ -53,6 +53,14 @@ export default function AppLayout() {
           href: null,
         }}
       />
+      <Tabs.Screen
+        name="booking"
+        options={{
+          headerShown: false,
+          href: null,
+        }}
+      />
     </Tabs>
+    
   );
 }
