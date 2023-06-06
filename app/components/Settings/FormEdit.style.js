@@ -37,6 +37,13 @@ const styles = StyleSheet.create({
     paddingVertical: 13,
     fontSize: 17,
   },
+
+  save: {
+    borderRadius: 5,
+    padding: 12,
+    fontFamily: "DMRegular",
+    backgroundColor: COLOR.primary,
+  },
 });
 
 export default styles;

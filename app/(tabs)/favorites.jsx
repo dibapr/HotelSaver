@@ -7,6 +7,7 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  SafeAreaView,
 } from "react-native";
 import { Stack } from "expo-router";
 import ICON from "../../constants/icon";
@@ -20,10 +21,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "white",
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
     padding: 16,
     gap: 20,
+    alignItems: "center",
   },
   btnLogin: {
     backgroundColor: COLOR.secondary,
@@ -42,7 +42,7 @@ const Favorites = () => {
   return isLoggedIn ? (
     <ScrollView style={{ flex: 1 }}>
       <View style={styles.container}>
-        {!home.favorites ? (
+        {home.favorites.length < 1 ? (
           <View style={{ alignItems: "center" }}>
             <Text style={{ fontFamily: "DMBold", fontSize: 20 }}>
               Belum ada yang disimpan
