@@ -1,11 +1,12 @@
 import axios from "axios";
+import {REACT_APP_RAPIDAPI_KEY, REACT_APP_RAPIDAPI_HOST} from "@env";
 
 const http = axios.create({
   baseURL: "https://hotels4.p.rapidapi.com",
   headers: {
     // "content-type": "application/json",
-    "X-RapidAPI-Key": "a51b866a62msh2e6059675701d40p129d5ajsn0bd572d1fd0c",
-    "X-RapidAPI-Host": "hotels4.p.rapidapi.com",
+    "X-RapidAPI-Key": REACT_APP_RAPIDAPI_KEY,
+    "X-RapidAPI-Host": REACT_APP_RAPIDAPI_HOST,
   },
 });
 
