@@ -3,6 +3,7 @@ import authSlice from "./slice/authSlice";
 import homeSlice from "./slice/homeSlice";
 import detailSlice from "./slice/detailSlice";
 import bookingSlice from "./slice/bookingSlice";
+import searchSlice from "./slice/searchSlice";
 import { persistStore, persistReducer } from "redux-persist";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import thunk from "redux-thunk";
@@ -18,6 +19,7 @@ const rootReducers = combineReducers({
   home: homeSlice,
   detail: detailSlice,
   booking: bookingSlice,
+  search: searchSlice,
 });
 
 const persisted = persistReducer(persistConfig, rootReducers);

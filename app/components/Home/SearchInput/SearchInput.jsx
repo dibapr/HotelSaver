@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -12,9 +11,12 @@ import styles from './SearchInput.style';
 import DatePicker from 'react-native-modern-datepicker';
 import ICON from '../../../../constants/icon';
 import COLOR from '../../../../constants/color';
+import { useRouter } from 'expo-router';
 
 const SearchInput = () => {
+  const router = useRouter();
   const today = new Date();
+  const [search, setSearch] = useState('');
   const [date, setDate] = useState(today.toLocaleDateString('en-CA'));
   const [open, setOpen] = useState(false);
 
@@ -22,12 +24,18 @@ const SearchInput = () => {
     setOpen(!open);
   };
 
+  useEffect(() => {
+    console.log(search);
+  }, [search])
+
   return (
     <View style={styles.container}>
       <TextInput
         placeholderTextColor={COLOR.white}
         style={styles.searchInput}
         placeholder="Mau kemana hari ini?"
+        value={search}
+        onChangeText={(text) => setSearch(text)}
       />
       <View style={styles.btnDateContainer}>
         {/* <View style={{ gap: 10 }}>
@@ -64,7 +72,12 @@ const SearchInput = () => {
         style={{ borderRadius: 20 }}
         onSelectedChange={() => setOpen(!open)}
       /> */}
-      <TouchableOpacity style={styles.btnSearch}>
+      <TouchableOpacity style={styles.btnSearch} onPress={() => {
+        router.push({
+          pathname: `search/${search}`,
+          params: search,
+        })
+      }}>
         <Image style={styles.icon} source={ICON.search} />
         <Text style={{ fontFamily: 'DMMedium' }}>Search</Text>
       </TouchableOpacity>
