@@ -1,12 +1,15 @@
 import { Text, View, TextInput, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
 import styles from "./FormEdit.style";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../../redux/slice/authSlice";
 
 const FormEdit = () => {
   const dispatch = useDispatch();
   const router = useRouter();
+  const { email, password, fullName, telp } = useSelector(
+    (state) => state.auth
+  );
 
   const handleLogout = () => {
     dispatch(logout());
@@ -18,7 +21,7 @@ const FormEdit = () => {
       <Text style={styles.head}>Personal Data</Text>
       <View style={styles.inputContainer}>
         <Text style={styles.label}>Nama Lengkap</Text>
-        <TextInput style={styles.input} />
+        <TextInput value={fullName} style={styles.input} />
       </View>
       <View style={styles.inputContainer}>
         <Text style={styles.label}>Alamat Email</Text>
@@ -29,7 +32,7 @@ const FormEdit = () => {
         <TextInput style={styles.input} />
       </View>
       <View style={styles.inputContainer}>
-        <Text style={styles.label}>Jenis Kelamin</Text>
+        <Text style={styles.label}>Nomor Telepon</Text>
         <TextInput style={styles.input} />
       </View>
       <TouchableOpacity

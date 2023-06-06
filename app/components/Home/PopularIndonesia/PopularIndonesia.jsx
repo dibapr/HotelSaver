@@ -8,8 +8,6 @@ import {
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { useRouter } from "expo-router";
 
@@ -68,6 +66,72 @@ const PopularIndonesia = () => {
                   console.log(item.id);
                   router.push({
                     pathname: `details/${item.id}`,
+                    params: id,
+                  });
+                }}
+                style={{
+                  backgroundColor: "white",
+                  borderRadius: 10,
+                  borderWidth: 0.3,
+                  borderColor: "grey",
+                }}
+                key={index}>
+                <View style={{ borderRadius: 20 }}>
+                  <Image
+                    source={{ uri: item.propertyImage.image.url }}
+                    style={{ width: "auto", height: 100, borderRadius: 10 }}
+                  />
+                </View>
+                <View
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    margin: 10,
+                  }}>
+                  <View style={{ flex: 2 }}>
+                    <Text style={{ fontFamily: "DMBold", fontSize: 16 }}>
+                      {item.name}
+                    </Text>
+                    <Text
+                      style={{
+                        fontFamily: "DMRegular",
+                        fontSize: 16,
+                        alignItems: "center",
+                      }}>
+                      <MaterialCommunityIcons
+                        name="star"
+                        color={COLOR.secondary}
+                        size={16}
+                      />
+                      <Text>{item.reviews.score}</Text>
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      flex: 2,
+                      alignItems: "flex-end",
+                      justifyContent: "space-between",
+                    }}>
+                    <Text style={{ fontFamily: "DMRegular", fontSize: 16 }}>
+                      {item.price.lead.formatted}
+                    </Text>
+                    <TouchableOpacity onPress={() => setOpenModal(!openModal)}>
+                      <MaterialCommunityIcons
+                        name="heart-outline"
+                        color="black"
+                        size={25}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            ))
+          : home.home.map((item, index) => (
+              <TouchableOpacity
+                onPress={() => {
+                  console.log(item.id);
+                  router.push({
+                    pathname: `details/${item.id}`,
                     params: item.id,
                   });
                 }}
@@ -94,57 +158,18 @@ const PopularIndonesia = () => {
                     <Text style={{ fontFamily: "DMBold", fontSize: 16 }}>
                       {item.name}
                     </Text>
-                    <Text style={{ fontFamily: "DMRegular", fontSize: 16 }}>
-                      Rating {item.reviews.score}
-                    </Text>
-                  </View>
-                  <View
-                    style={{
-                      flex: 2,
-                      alignItems: "flex-end",
-                      justifyContent: "space-between",
-                    }}>
-                    <Text style={{ fontFamily: "DMRegular", fontSize: 16 }}>
-                      $ {item.price.lead.amount}
-                    </Text>
-                    <TouchableOpacity onPress={() => setOpenModal(!openModal)}>
+                    <Text
+                      style={{
+                        fontFamily: "DMRegular",
+                        fontSize: 16,
+                        alignItems: "center",
+                      }}>
                       <MaterialCommunityIcons
-                        name="heart-outline"
-                        color="black"
-                        size={25}
+                        name="star"
+                        color={COLOR.secondary}
+                        size={16}
                       />
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              </TouchableOpacity>
-            ))
-          : home.home.map((item, index) => (
-              <View
-                style={{
-                  backgroundColor: "white",
-                  borderRadius: 10,
-                  borderWidth: 0.3,
-                  borderColor: "grey",
-                }}
-                key={index}>
-                <View style={{ borderRadius: 20 }}>
-                  <Image
-                    source={{ uri: item.propertyImage.image.url }}
-                    style={{ width: "auto", height: 100, borderRadius: 10 }}
-                  />
-                </View>
-                <View
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    margin: 10,
-                  }}>
-                  <View style={{ flex: 2 }}>
-                    <Text style={{ fontFamily: "DMBold", fontSize: 16 }}>
-                      {item.name}
-                    </Text>
-                    <Text style={{ fontFamily: "DMRegular", fontSize: 16 }}>
-                      Rating {item.reviews.score}
+                      <Text>{item.reviews.score}</Text>
                     </Text>
                   </View>
                   <View
@@ -154,7 +179,7 @@ const PopularIndonesia = () => {
                       justifyContent: "space-between",
                     }}>
                     <Text style={{ fontFamily: "DMRegular", fontSize: 16 }}>
-                      $ {item.price.lead.amount}
+                      {item.price.lead.formatted}
                     </Text>
                     {home.favorites.find(
                       (favorite) => favorite.id === item.id
@@ -185,7 +210,7 @@ const PopularIndonesia = () => {
                     )}
                   </View>
                 </View>
-              </View>
+              </TouchableOpacity>
             ))}
       </View>
     </>

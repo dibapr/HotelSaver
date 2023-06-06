@@ -14,6 +14,9 @@ import COLOR from "../../constants/color";
 import TopIndonesia from "../components/Home/TopIndonesia/TopIndonesia";
 import PopularIndonesia from "../components/Home/PopularIndonesia/PopularIndonesia";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { resetDetails } from "../../redux/slice/detailSlice";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 const styles = StyleSheet.create({
   container: {
@@ -33,8 +36,9 @@ const styles = StyleSheet.create({
 });
 
 const Home = () => {
+  const dispatch = useDispatch();
   const today = new Date().toLocaleDateString("en-CA");
-  const [date, setDate] = useState(today);
+
   const resetStorage = async () => {
     try {
       await AsyncStorage.removeItem("persist:root");
@@ -43,6 +47,11 @@ const Home = () => {
     }
     console.log("Done.");
   };
+
+  useEffect(() => {
+    dispatch(resetDetails());
+  }, []);
+
   return (
     <ScrollView>
       <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.lightGray }}>
@@ -57,7 +66,7 @@ const Home = () => {
           }}
         />
         <View style={{ backgroundColor: COLOR.lightGray }}>
-          <SearchInput today={today} checkOutDate={setDate} />
+          <SearchInput />
           <View style={styles.container}>
             <TouchableOpacity
               onPress={resetStorage}

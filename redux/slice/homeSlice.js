@@ -12,12 +12,12 @@ export const getHome = createAsyncThunk("home/getHome", async () => {
   const response = await http.post(
     "properties/v2/list",
     {
-      currency: "USD",
-      eapid: 1,
+      currency: "IDR",
+      eapid: 46,
       locale: "en_US",
-      siteId: 300000001,
+      siteId: 321200046,
       destination: {
-        regionId: "6054439",
+        regionId: "6049351",
       },
       checkInDate: {
         day: 10,
@@ -32,15 +32,19 @@ export const getHome = createAsyncThunk("home/getHome", async () => {
       rooms: [
         {
           adults: 2,
-          children: [{ age: 5 }, { age: 7 }],
+          children: [
+            {
+              age: 5,
+            },
+            {
+              age: 7,
+            },
+          ],
         },
       ],
       resultsStartingIndex: 0,
-      resultsSize: 200,
-      sort: "PRICE_LOW_TO_HIGH",
-      filters: {
-        price: { max: 150, min: 100 },
-      },
+      resultsSize: 15,
+      sort: "RECOMMENDED",
     },
     {
       headers: {
