@@ -107,7 +107,6 @@ const Login = () => {
             name="email"
             onChangeText={(email) => {
               setError("");
-              console.log(email);
               setEmail({ email });
             }}
           />
@@ -120,7 +119,6 @@ const Login = () => {
             name="password"
             onChangeText={(password) => {
               setError("");
-              console.log(password);
               setPassword({ password });
             }}
           />
