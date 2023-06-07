@@ -138,7 +138,7 @@ const Profile = () => {
                   <View>
                     <Text>
                       <Image
-                        source={item.propertyGallery.images[0].image.url}
+                        source={{ uri: item.propertyGallery.images[0].image.url }}
                         style={{ height: 50, width: 50, borderRadius: 10 }}
                       />
                     </Text>
