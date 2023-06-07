@@ -56,6 +56,7 @@ const Favorites = () => {
                 borderRadius: 10,
                 borderWidth: 0.3,
                 borderColor: "grey",
+                width: "100%",
               }}
               key={index}>
               <View style={{ borderRadius: 20 }}>
@@ -80,7 +81,7 @@ const Favorites = () => {
                 </View>
                 <View style={{ flex: 2, alignItems: "flex-end" }}>
                   <Text style={{ fontFamily: "DMRegular", fontSize: 16 }}>
-                    $ {item.price.lead.amount}
+                    {item.price.lead.formatted}
                   </Text>
                   {home.favorites.find(
                     (favorite) => favorite.id === item.id

@@ -66,7 +66,7 @@ const PopularIndonesia = () => {
                   console.log(item.id);
                   router.push({
                     pathname: `details/${item.id}`,
-                    params: id,
+                    params: item.id,
                   });
                 }}
                 style={{

@@ -80,6 +80,8 @@ const Profile = () => {
   const { isLoggedIn, fullName, email, telp } = useSelector(
     (state) => state.auth
   );
+  const favorite = useSelector((state) => state.home.favorites);
+  const booking = useSelector((state) => state.booking.booking);
 
   return isLoggedIn ? (
     <View style={styles.container}>
@@ -103,7 +105,7 @@ const Profile = () => {
               <Text>Bookings</Text>
             </View>
             <View>
-              <Text style={{ color: "#32a852", fontWeight: "bold" }}>27</Text>
+              <Text style={{ color: "#32a852", fontWeight: "bold" }}>{booking.length}</Text>
             </View>
           </View>
           <View style={{ textAlign: "center" }}>
@@ -111,74 +113,52 @@ const Profile = () => {
               <Text>Favorites</Text>
             </View>
             <View>
-              <Text style={{ color: "#32a852", fontWeight: "bold" }}>115</Text>
+              <Text style={{ color: "#32a852", fontWeight: "bold" }}>{favorite.length}</Text>
             </View>
           </View>
         </View>
       </View>
       <View style={styles.listContainer}>
-        <View style={styles.listHistory}>
-          <View style={styles.historyContainer}>
-            <View>
-              <Text>
-                <Image
-                  source={ICON.hotel}
-                  style={{ height: 50, width: 50, borderRadius: 10 }}
-                />
-              </Text>
-            </View>
-            <View>
-              <View>
-                <Text>Garden Hotel</Text>
+        <Text style={{ padding: 10, fontWeight: "bold" }}>List History Booking</Text>
+        {
+          booking.length < 1 ? (
+            <View style={styles.listHistory}>
+              <View style={styles.historyContainer}>
+                <Text style={{ fontFamily: "DMBold" }}>History</Text>
+                <Text style={{ fontFamily: "DMRegular" }}>See All</Text>
               </View>
-              <View>
-                <Text>Lake Mary, Florida</Text>
-              </View>
-              <View>
-                <Text>4,5</Text>
+              <View style={{ alignItems: "center" }}>
+                <Text style={{ fontFamily: "DMRegular" }}>No History</Text>
               </View>
             </View>
-            <View>
-              <View>
-                <Text>$ 250</Text>
+          ) : (
+            booking.map((item, index) => (
+              <View style={styles.listHistory} key={index}>
+                <View style={styles.historyContainer}>
+                  <View>
+                    <Text>
+                      <Image
+                        source={item.propertyGallery.images[0].image.url}
+                        style={{ height: 50, width: 50, borderRadius: 10 }}
+                      />
+                    </Text>
+                  </View>
+                  <View>
+                    <View>
+                      <Text>Nama : {item.summary.name}</Text>
+                    </View>
+                    <View>
+                      <Text>Lokasi : {item.summary.location.address.addressLine}</Text>
+                    </View>
+                    <View>
+                      <Text>Rating : {item.summary.overview.propertyRating.rating}</Text>
+                    </View>
+                  </View>
+                </View>
               </View>
-              <View>
-                <Text>/per night</Text>
-              </View>
-            </View>
-          </View>
-        </View>
-        <View style={styles.listHistory}>
-          <View style={styles.historyContainer}>
-            <View>
-              <Text>
-                <Image
-                  source={ICON.hotel}
-                  style={{ height: 50, width: 50, borderRadius: 10 }}
-                />
-              </Text>
-            </View>
-            <View>
-              <View>
-                <Text>Hotel Dreams</Text>
-              </View>
-              <View>
-                <Text>New Castle, Indiana</Text>
-              </View>
-              <View>
-                <Text>4,5</Text>
-              </View>
-            </View>
-            <View>
-              <View>
-                <Text>$ 300</Text>
-              </View>
-              <View>
-                <Text>/per night</Text>
-              </View>
-            </View>
-          </View>
-        </View>
+            ))
+          )
+        }
       </View>
     </View>
   ) : (

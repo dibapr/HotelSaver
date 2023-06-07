@@ -23,19 +23,20 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 const HotelDetail = () => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
   const { id } = useLocalSearchParams();
 
-  // useEffect(() => {
-  //   dispatch(resetDetails());
-  // }, []);
+  useEffect(() => {
+    dispatch(resetDetails());
+  }, []);
 
-  // useEffect(() => {
-  //   dispatch(getDetails({ id }));
-  // }, []);
+  useEffect(() => {
+    dispatch(getDetails({ id }));
+  }, []);
 
-  // useEffect(() => {
-  //   dispatch(getDescription({ id }));
-  // }, []);
+  useEffect(() => {
+    dispatch(getDescription({ id }));
+  }, []);
 
   const { details, description, loading } = useSelector(
     (state) => state.detail
@@ -136,10 +137,13 @@ const HotelDetail = () => {
               <TouchableOpacity
                 style={styles.btnBooking}
                 onPress={() => {
-                  router.push({
-                    pathname: `booking/${details?.summary?.name}`,
-                    params: details?.summary?.name,
-                  });
+                  if (auth.isLoggedIn === true) {
+                    return router.push({
+                      pathname: `booking/${details?.summary?.name}`,
+                      params: details?.summary?.name,
+                    });
+                  }
+                  router.push("login")
                 }}>
                 <MaterialCommunityIcons
                   name="book-clock"

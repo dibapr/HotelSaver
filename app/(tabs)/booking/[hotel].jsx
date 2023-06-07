@@ -1,4 +1,4 @@
-import { Stack, useLocalSearchParams } from "expo-router";
+import { Stack, useLocalSearchParams, useRootNavigation } from "expo-router";
 import React, { useState } from "react";
 import {
   View,
@@ -13,8 +13,15 @@ import {
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import COLOR from "../../../constants/color";
 import DatePicker from "react-native-modern-datepicker";
+import { addBooking } from "../../../redux/slice/bookingSlice";
+import { resetDetails } from "../../../redux/slice/detailSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const Booking = () => {
+  const dispatch = useDispatch();
+  const rootNavigation = useRootNavigation();
+  const auth = useSelector((state) => state.auth);
+  const detail = useSelector((state) => state.detail.details);
   const today = new Date().toLocaleDateString("en-CA");
   const { hotel } = useLocalSearchParams();
   const [checkIn, setCheckIn] = useState(today);
@@ -154,7 +161,22 @@ const Booking = () => {
                 <TextInput style={styles.input} />
               </View>
             </View>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => {
+              if (auth.isLoggedIn === false) {
+                  return rootNavigation.navigate("login")
+                }
+              if (checkIn === "" || checkOut === "") {
+                  return alert("Please fill the form")
+              }
+              if (detail.length < 1) {
+                  setCheckIn("")
+                  setCheckOut("")
+                  return rootNavigation.navigate("home")
+              }
+              dispatch(addBooking(detail))
+              dispatch(resetDetails())
+              rootNavigation.navigate('home')
+            }}>
               <Text style={styles.btnBooking}>
                 <MaterialCommunityIcons name="book-check" size={19} />
                 Konfirmasi Booking
