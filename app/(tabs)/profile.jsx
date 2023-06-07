@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   profileHistory: {
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-evenly",
     padding: 10,
   },
   listContainer: {
@@ -77,7 +77,9 @@ const styles = StyleSheet.create({
 
 const Profile = () => {
   const router = useRouter();
-  const { isLoggedIn } = useSelector((state) => state.auth);
+  const { isLoggedIn, fullName, email, telp } = useSelector(
+    (state) => state.auth
+  );
 
   return isLoggedIn ? (
     <View style={styles.container}>
@@ -91,8 +93,8 @@ const Profile = () => {
           </View>
           <View
             style={{ flex: 1, justifyContent: "center", textAlign: "center" }}>
-            <Text style={{ fontWeight: "bold" }}>Gordon Norman</Text>
-            <Text>@gordonnorman</Text>
+            <Text style={{ fontFamily: "DMBold" }}>{fullName}</Text>
+            <Text style={{ fontFamily: "DMRegular" }}>{email}</Text>
           </View>
         </View>
         <View style={styles.profileHistory}>
@@ -102,14 +104,6 @@ const Profile = () => {
             </View>
             <View>
               <Text style={{ color: "#32a852", fontWeight: "bold" }}>27</Text>
-            </View>
-          </View>
-          <View style={{ textAlign: "center" }}>
-            <View>
-              <Text>Reviews</Text>
-            </View>
-            <View>
-              <Text style={{ color: "#32a852", fontWeight: "bold" }}>10</Text>
             </View>
           </View>
           <View style={{ textAlign: "center" }}>

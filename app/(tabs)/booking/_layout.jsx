@@ -3,7 +3,7 @@ import { Stack } from "expo-router";
 const BookingLayout = () => {
   return (
     <Stack>
-      <Stack.Screen name="booking" />
+      <Stack.Screen name="[hotel]" />
     </Stack>
   );
 };
