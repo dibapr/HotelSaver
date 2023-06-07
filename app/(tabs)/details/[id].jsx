@@ -18,6 +18,7 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 const HotelDetail = () => {
   const router = useRouter()
   const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
   const { id } = useLocalSearchParams();
 
   useEffect(() => {
@@ -90,7 +91,10 @@ const HotelDetail = () => {
               </View>
             </View>
             <TouchableOpacity style={styles.btnBooking} onPress={() => {
-              router.push("booking")
+              if (auth.isLoggedIn === true) {
+                router.push("booking")
+              }
+              router.push("login")
             }}>
               <Text style={styles.bookingText}>Booking Sekarang</Text>
             </TouchableOpacity>

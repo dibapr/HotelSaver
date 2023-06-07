@@ -58,8 +58,8 @@ const Login = () => {
     if (email.email === auth.email && password.password === auth.password) {
       console.log("masuk");
       dispatch(login());
-      router.replace("home");
-      // router.back()
+      // router.replace("home");
+      router.back()
       return;
     }
     console.log("gagal");

@@ -1,4 +1,4 @@
-import { Stack, useRootNavigation } from 'expo-router'
+import { Stack, useRootNavigation, useRouter } from 'expo-router'
 import React, { useState } from 'react'
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
@@ -42,6 +42,8 @@ const style = StyleSheet.create({
 const Booking = () => {
     const dispatch = useDispatch()
     const rootNavigation = useRootNavigation();
+    const router = useRouter();
+    const auth = useSelector(state => state.auth)
 
     const [checkIn, setCheckIn] = useState("")
     const [checkOut, setCheckOut] = useState("")
@@ -76,6 +78,9 @@ const Booking = () => {
                 </View>
                 <View>
                     <TouchableOpacity style={style.button} onPress={() => {
+                        if (auth.isLoggedIn === false) {
+                            return rootNavigation.navigate("login")
+                          }
                         if (checkIn === "" || checkOut === "") {
                             return alert("Please fill the form")
                         }
