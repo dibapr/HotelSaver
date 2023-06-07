@@ -12,10 +12,15 @@ import {
 import { useLocalSearchParams, Stack, useRouter } from "expo-router";
 import COLOR from "../../../constants/color";
 import {
+  addToFavorites,
+  removeFromFavorites,
+} from "../../../redux/slice/homeSlice";
+import {
   getDetails,
   resetDetails,
   getDescription,
 } from "../../../redux/slice/detailSlice";
+
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -24,6 +29,7 @@ const HotelDetail = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
+  const home = useSelector((state) => state.home);
   const { id } = useLocalSearchParams();
 
   useEffect(() => {
@@ -130,29 +136,24 @@ const HotelDetail = () => {
                 />
               </View>
             </View>
-            <View style={styles.actionContainer}>
-              <TouchableOpacity style={styles.btnFav}>
-                <MaterialCommunityIcons name="heart" color="red" size={20} />
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.btnBooking}
-                onPress={() => {
-                  if (auth.isLoggedIn === true) {
-                    return router.push({
-                      pathname: `booking/${details?.summary?.name}`,
-                      params: details?.summary?.name,
-                    });
-                  }
-                  router.push("login")
-                }}>
-                <MaterialCommunityIcons
-                  name="book-clock"
-                  color={COLOR.secondary}
-                  size={20}
-                />
-                <Text style={styles.bookingText}>Booking Sekarang</Text>
-              </TouchableOpacity>
-            </View>
+            <TouchableOpacity
+              style={styles.btnBooking}
+              onPress={() => {
+                if (auth.isLoggedIn === true) {
+                  return router.push({
+                    pathname: `booking/${details?.summary?.name}`,
+                    params: details?.summary?.name,
+                  });
+                }
+                router.push("login");
+              }}>
+              <MaterialCommunityIcons
+                name="book-clock"
+                color={COLOR.secondary}
+                size={20}
+              />
+              <Text style={styles.bookingText}>Booking Sekarang</Text>
+            </TouchableOpacity>
           </View>
         )}
       </ScrollView>
@@ -177,13 +178,6 @@ const styles = StyleSheet.create({
 
   tagline: {
     fontFamily: "DMRegular",
-  },
-
-  actionContainer: {
-    alignItems: "center",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingVertical: 15,
   },
 
   btnFav: {

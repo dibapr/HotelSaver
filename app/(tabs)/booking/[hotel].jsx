@@ -24,10 +24,13 @@ const Booking = () => {
   const detail = useSelector((state) => state.detail.details);
   const today = new Date().toLocaleDateString("en-CA");
   const { hotel } = useLocalSearchParams();
-  const [checkIn, setCheckIn] = useState(today);
-  const [checkOut, setCheckOut] = useState(today);
+  const [checkIn, setCheckIn] = useState("Pilih Tanggal");
+  const [checkOut, setCheckOut] = useState("Pilih Tanggal");
   const [openModalCheckIn, setOpenModalCheckIn] = useState(false);
   const [openModalCheckOut, setOpenModalCheckOut] = useState(false);
+  const { fullName, telp } = useSelector((state) => state.auth);
+  const [contactName, setContactName] = useState(fullName);
+  const [contactTelp, setContactTelp] = useState(telp);
 
   return (
     <>
@@ -154,29 +157,44 @@ const Booking = () => {
               </Text>
               <View style={{ gap: 5 }}>
                 <Text style={[styles.text]}>Nama</Text>
-                <TextInput style={styles.input} />
+                <TextInput
+                  style={styles.input}
+                  value={contactName}
+                  onChangeText={(inputName) => setContactName(inputName)}
+                />
               </View>
               <View style={{ gap: 5 }}>
                 <Text style={[styles.text]}>Nomor Telepon</Text>
-                <TextInput style={styles.input} />
+                <TextInput
+                  style={styles.input}
+                  value={contactTelp}
+                  onChangeText={(inputTelp) => setContactTelp(inputTelp)}
+                />
               </View>
             </View>
-            <TouchableOpacity onPress={() => {
-              if (auth.isLoggedIn === false) {
-                  return rootNavigation.navigate("login")
+            <TouchableOpacity
+              onPress={() => {
+                if (auth.isLoggedIn === false) {
+                  return rootNavigation.navigate("login");
                 }
-              if (checkIn === "" || checkOut === "") {
-                  return alert("Please fill the form")
-              }
-              if (detail.length < 1) {
-                  setCheckIn("")
-                  setCheckOut("")
-                  return rootNavigation.navigate("home")
-              }
-              dispatch(addBooking(detail))
-              dispatch(resetDetails())
-              rootNavigation.navigate('home')
-            }}>
+                if (checkIn === "" || checkOut === "") {
+                  return alert("Please fill the form");
+                }
+                if (detail.length < 1) {
+                  setCheckIn("");
+                  setCheckOut("");
+                  return rootNavigation.navigate("home");
+                }
+                dispatch(
+                  addBooking({
+                    ...detail,
+                    checkIn: checkIn,
+                    checkOut: checkOut,
+                  })
+                );
+                dispatch(resetDetails());
+                rootNavigation.navigate("home");
+              }}>
               <Text style={styles.btnBooking}>
                 <MaterialCommunityIcons name="book-check" size={19} />
                 Konfirmasi Booking

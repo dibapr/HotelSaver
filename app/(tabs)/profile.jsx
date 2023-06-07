@@ -11,7 +11,8 @@ import {
 import { Stack } from "expo-router";
 import ICON from "../../constants/icon";
 import COLOR from "../../constants/color";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { clearBooking } from "../../redux/slice/bookingSlice";
 
 const styles = StyleSheet.create({
   btnLogin: {
@@ -68,10 +69,9 @@ const styles = StyleSheet.create({
     marginEnd: 16,
   },
   historyContainer: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    padding: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 10,
   },
 });
 
@@ -82,6 +82,9 @@ const Profile = () => {
   );
   const favorite = useSelector((state) => state.home.favorites);
   const booking = useSelector((state) => state.booking.booking);
+  const dispatch = useDispatch();
+
+  console.log(booking.map((item) => item.checkIn));
 
   return isLoggedIn ? (
     <View style={styles.container}>
@@ -105,7 +108,9 @@ const Profile = () => {
               <Text>Bookings</Text>
             </View>
             <View>
-              <Text style={{ color: "#32a852", fontWeight: "bold" }}>{booking.length}</Text>
+              <Text style={{ color: "#32a852", fontWeight: "bold" }}>
+                {booking.length}
+              </Text>
             </View>
           </View>
           <View style={{ textAlign: "center" }}>
@@ -113,52 +118,89 @@ const Profile = () => {
               <Text>Favorites</Text>
             </View>
             <View>
-              <Text style={{ color: "#32a852", fontWeight: "bold" }}>{favorite.length}</Text>
+              <Text style={{ color: "#32a852", fontWeight: "bold" }}>
+                {favorite.length}
+              </Text>
             </View>
           </View>
         </View>
       </View>
       <View style={styles.listContainer}>
-        <Text style={{ padding: 10, fontWeight: "bold" }}>List History Booking</Text>
-        {
-          booking.length < 1 ? (
-            <View style={styles.listHistory}>
-              <View style={styles.historyContainer}>
-                <Text style={{ fontFamily: "DMBold" }}>History</Text>
-                <Text style={{ fontFamily: "DMRegular" }}>See All</Text>
-              </View>
-              <View style={{ alignItems: "center" }}>
-                <Text style={{ fontFamily: "DMRegular" }}>No History</Text>
-              </View>
+        <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
+          <Text
+            style={{ padding: 10, fontWeight: "bold", textAlign: "center" }}>
+            List History Booking
+          </Text>
+          <TouchableOpacity onPress={() => dispatch(clearBooking())}>
+            <Text
+              style={{
+                padding: 10,
+                fontWeight: "bold",
+                textAlign: "center",
+                color: "red",
+              }}>
+              Hapus History
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+        {booking.length < 1 ? (
+          <View style={styles.listHistory}>
+            <View style={{ alignItems: "center" }}>
+              <Text style={{ fontFamily: "DMRegular" }}>No History</Text>
             </View>
-          ) : (
-            booking.map((item, index) => (
-              <View style={styles.listHistory} key={index}>
-                <View style={styles.historyContainer}>
+          </View>
+        ) : (
+          booking.map((item, index) => (
+            <View style={styles.listHistory} key={index}>
+              <View style={styles.historyContainer}>
+                <View>
+                  <Image
+                    source={{ uri: item.propertyGallery.images[0].image.url }}
+                    style={{ height: 50, width: 330, borderRadius: 10 }}
+                  />
+                </View>
+                <View>
                   <View>
-                    <Text>
-                      <Image
-                        source={{ uri: item.propertyGallery.images[0].image.url }}
-                        style={{ height: 50, width: 50, borderRadius: 10 }}
-                      />
+                    <Text style={{ fontFamily: "DMMedium" }}>
+                      Nama : {item.summary.name}
                     </Text>
                   </View>
                   <View>
+                    <Text style={{ fontFamily: "DMMedium" }}>
+                      Lokasi : {item.summary.location.address.addressLine}
+                    </Text>
+                  </View>
+                  <View>
+                    <Text style={{ fontFamily: "DMMedium" }}>
+                      Rating : {item.summary.overview.propertyRating.rating}
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      marginTop: 10,
+                      flexDirection: "row",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                    }}>
                     <View>
-                      <Text>Nama : {item.summary.name}</Text>
+                      <Text style={{ fontFamily: "DMMedium" }}>Check In</Text>
+                      <Text style={{ fontFamily: "DMMedium" }}>
+                        {booking.map((item) => item.checkIn)}
+                      </Text>
                     </View>
                     <View>
-                      <Text>Lokasi : {item.summary.location.address.addressLine}</Text>
-                    </View>
-                    <View>
-                      <Text>Rating : {item.summary.overview.propertyRating.rating}</Text>
+                      <Text style={{ fontFamily: "DMMedium" }}>Check Out</Text>
+                      <Text style={{ fontFamily: "DMMedium" }}>
+                        {booking.map((item) => item.checkOut)}
+                      </Text>
                     </View>
                   </View>
                 </View>
               </View>
-            ))
-          )
-        }
+            </View>
+          ))
+        )}
       </View>
     </View>
   ) : (

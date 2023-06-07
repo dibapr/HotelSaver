@@ -37,16 +37,6 @@ const styles = StyleSheet.create({
 
 const Home = () => {
   const dispatch = useDispatch();
-  const today = new Date().toLocaleDateString("en-CA");
-
-  const resetStorage = async () => {
-    try {
-      await AsyncStorage.removeItem("persist:root");
-    } catch (e) {
-      console.log(e);
-    }
-    console.log("Done.");
-  };
 
   useEffect(() => {
     dispatch(resetDetails());
@@ -68,15 +58,6 @@ const Home = () => {
         <View style={{ backgroundColor: COLOR.lightGray }}>
           <SearchInput />
           <View style={styles.container}>
-            <TouchableOpacity
-              onPress={resetStorage}
-              style={{
-                backgroundColor: COLOR.primary,
-                padding: 15,
-                borderRadius: 20,
-              }}>
-              <Text style={{ color: "white" }}>Reset Storage</Text>
-            </TouchableOpacity>
             <TopIndonesia />
             <PopularIndonesia />
           </View>

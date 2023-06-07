@@ -1,4 +1,4 @@
-import { Text, View, TextInput, TouchableOpacity } from "react-native";
+import { Text, View, TextInput, TouchableOpacity, Modal } from "react-native";
 import { useRouter } from "expo-router";
 import styles from "./FormEdit.style";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,6 +26,7 @@ const FormEdit = () => {
   const [errorEmail, setErrorEmail] = useState(false);
   const [errorPassword, setErrorPassword] = useState(false);
   const [errorTelp, setErrorTelp] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -56,11 +57,35 @@ const FormEdit = () => {
         telp: newTelp,
       })
     );
+    setOpenModal(!openModal);
     console.log("updated");
   };
 
   return (
     <View style={styles.container}>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={openModal}
+        onRequestClose={() => setModalVisible(!openModal)}>
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <TouchableOpacity
+              onPress={() => setOpenModal(!openModal)}
+              style={{ alignSelf: "flex-end" }}>
+              <MaterialCommunityIcons name="close" size={18} />
+            </TouchableOpacity>
+            <MaterialCommunityIcons
+              name="check-circle"
+              size={70}
+              color="green"
+            />
+            <Text style={{ fontFamily: "DMRegular", fontSize: 20 }}>
+              Data anda berhasil diupdate.
+            </Text>
+          </View>
+        </View>
+      </Modal>
       <Text style={styles.head}>Personal Data</Text>
       <View style={styles.inputContainer}>
         <Text style={styles.label}>Nama Lengkap</Text>
