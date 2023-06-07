@@ -43,7 +43,7 @@ const Search = () => {
                 search.loading ? (
                   <ActivityIndicator />
                 ) : (
-                  search && search.search.sr.map((item, index) => (
+                  search && search?.search?.sr?.map((item, index) => (
                     <TouchableOpacity key={index} onPress={() => router.push({
                       pathname: `details/${item.hotelId}`,
                       params: item.hotelId,
