@@ -11,8 +11,7 @@ import {
 import { Stack } from "expo-router";
 import COLOR from "../../constants/color";
 import { useDispatch, useSelector } from "react-redux";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { removeFromFavorites } from "../../redux/slice/homeSlice";
 
 const styles = StyleSheet.create({
@@ -48,19 +47,21 @@ const Favorites = () => {
           </View>
         ) : (
           home.favorites.map((item, index) => (
-            <TouchableOpacity onPress={() => {
-              router.push({
-                pathname: `details/${item.id}`,
-                params: item.id,
-              });
-            }}>
+            <TouchableOpacity
+              key={index}
+              onPress={() => {
+                router.push({
+                  pathname: `details/${item.id}`,
+                  params: item.id,
+                });
+              }}>
               <View
                 style={{
                   backgroundColor: "white",
                   borderRadius: 10,
                   borderWidth: 0.3,
                   borderColor: "grey",
-                  width: "100%",
+                  width: 300,
                 }}
                 key={index}>
                 <View style={{ borderRadius: 20 }}>
@@ -83,37 +84,26 @@ const Favorites = () => {
                       Rating {item.reviews.score}
                     </Text>
                   </View>
-                  <View style={{ flex: 2, alignItems: "flex-end" }}>
+                  <View
+                    style={{
+                      flex: 2,
+                      alignItems: "flex-end",
+                      justifyContent: "space-around",
+                    }}>
                     <Text style={{ fontFamily: "DMRegular", fontSize: 16 }}>
                       {item.price.lead.formatted}
                     </Text>
-                    {home.favorites.find(
-                      (favorite) => favorite.id === item.id
-                    ) ? (
-                      <TouchableOpacity
-                        onPress={() => {
-                          dispatch(removeFromFavorites(item.id));
-                          console.log("ini hapus", item.id);
-                        }}>
-                        {/* <FontAwesomeIcon
-                          icon={faHeart}
-                          style={{ color: "red" }}
-                        /> */}
-                        {/* <Image source={ICON.heart} style={{ width: 20, height: 20 }} /> */}
-                      </TouchableOpacity>
-                    ) : (
-                      <TouchableOpacity
-                        onPress={() => {
-                          dispatch(addToFavorites(item));
-                          console.log("ini tambah", item);
-                        }}>
-                        {/* <FontAwesomeIcon
-                          icon={faHeart}
-                          style={{ color: "black" }}
-                        /> */}
-                        {/* <Image source={ICON.heart} style={{ width: 20, height: 20 }} /> */}
-                      </TouchableOpacity>
-                    )}
+                    <TouchableOpacity
+                      onPress={() => {
+                        dispatch(removeFromFavorites(item.id));
+                        console.log("ini hapus", item.id);
+                      }}>
+                      <MaterialCommunityIcons
+                        name="heart"
+                        color="red"
+                        size={20}
+                      />
+                    </TouchableOpacity>
                   </View>
                 </View>
               </View>

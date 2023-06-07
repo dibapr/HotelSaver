@@ -110,5 +110,6 @@ const homeSlice = createSlice({
   },
 });
 
-export const { addToFavorites, removeFromFavorites } = homeSlice.actions;
+export const { addToFavorites, removeFromFavorites, resetFavorites } =
+  homeSlice.actions;
 export default homeSlice.reducer;
