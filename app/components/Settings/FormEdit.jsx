@@ -2,7 +2,7 @@ import { Text, View, TextInput, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
 import styles from "./FormEdit.style";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../../redux/slice/authSlice";
+import { logout, editUser } from "../../../redux/slice/authSlice";
 import { useState } from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import COLOR from "../../../constants/color";
@@ -15,15 +15,48 @@ const FormEdit = () => {
     (state) => state.auth
   );
 
+  let testEmail = new RegExp("[a-z0-9]+@[a-z]+.[a-z]{2,3}");
+
   const [newFullName, setNewFullName] = useState(fullName);
   const [newEmail, setNewEmail] = useState(email);
   const [newPassword, setNewPassword] = useState(password);
   const [newTelp, setNewTelp] = useState(telp);
   const [showPassword, setShowPassword] = useState(true);
+  const [errorFullName, setErrorFullName] = useState(false);
+  const [errorEmail, setErrorEmail] = useState(false);
+  const [errorPassword, setErrorPassword] = useState(false);
+  const [errorTelp, setErrorTelp] = useState(false);
 
   const handleLogout = () => {
     dispatch(logout());
     router.push("/login");
+  };
+
+  const submitHandler = () => {
+    if (newFullName == "") {
+      return setErrorFullName(true);
+    }
+
+    if (newEmail == "" || testEmail.test(newEmail) === false) {
+      return setErrorEmail(true);
+    }
+
+    if (newPassword == "") {
+      return setErrorPassword(true);
+    }
+
+    if (newTelp == "" || !parseInt(newTelp)) {
+      return setErrorTelp(true);
+    }
+    dispatch(
+      editUser({
+        fullName: newFullName,
+        email: newEmail,
+        password: newPassword,
+        telp: newTelp,
+      })
+    );
+    console.log("updated");
   };
 
   return (
@@ -35,9 +68,15 @@ const FormEdit = () => {
           value={newFullName}
           style={styles.input}
           onChangeText={(inputFullName) => {
-            setNewFullName({ inputFullName });
+            setErrorFullName(false);
+            setNewFullName(inputFullName);
           }}
         />
+        {errorFullName && (
+          <Text style={{ fontFamily: "DMMedium", color: "red" }}>
+            Format nama lengkap salah.
+          </Text>
+        )}
       </View>
       <View style={styles.inputContainer}>
         <Text style={styles.label}>Alamat Email</Text>
@@ -46,9 +85,15 @@ const FormEdit = () => {
           value={newEmail}
           style={styles.input}
           onChangeText={(inputEmail) => {
-            setNewEmail({ inputEmail });
+            setErrorEmail(false);
+            setNewEmail(inputEmail);
           }}
         />
+        {errorEmail && (
+          <Text style={{ fontFamily: "DMMedium", color: "red" }}>
+            Format email salah.
+          </Text>
+        )}
       </View>
       <View style={styles.inputContainer}>
         <Text style={styles.label}>Password</Text>
@@ -57,9 +102,15 @@ const FormEdit = () => {
           value={newPassword}
           style={styles.input}
           onChangeText={(inputPassword) => {
-            setNewPassword({ inputPassword });
+            setErrorPassword(false);
+            setNewPassword(inputPassword);
           }}
         />
+        {errorPassword && (
+          <Text style={{ fontFamily: "DMMedium", color: "red" }}>
+            Format password salah.
+          </Text>
+        )}
         <TouchableOpacity
           style={{
             flexDirection: "row",
@@ -81,11 +132,17 @@ const FormEdit = () => {
           value={newTelp}
           style={styles.input}
           onChangeText={(inputTelp) => {
-            setNewTelp({ inputTelp });
+            setErrorTelp(false);
+            setNewTelp(inputTelp);
           }}
         />
+        {errorTelp && (
+          <Text style={{ fontFamily: "DMMedium", color: "red" }}>
+            Format nomor telepon salah.
+          </Text>
+        )}
       </View>
-      <TouchableOpacity style={styles.save}>
+      <TouchableOpacity onPress={submitHandler} style={styles.save}>
         <Text
           style={{
             color: COLOR.secondary,

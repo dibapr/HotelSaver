@@ -24,8 +24,14 @@ const authSlice = createSlice({
         isLoggedIn: false,
       });
     },
+    editUser: (state, action) => {
+      state.email = action.payload.email;
+      state.password = action.payload.password;
+      state.fullName = action.payload.fullName;
+      state.telp = action.payload.telp;
+    },
   },
 });
 
-export const { login, logout } = authSlice.actions;
+export const { login, logout, editUser } = authSlice.actions;
 export default authSlice.reducer;
